@@ -1,8 +1,9 @@
 import pygame.font
 
+
 class Button:
 
-    def __init__(self, ai_game, msg):
+    def __init__(self, ai_game, msg, *args):
         """Initialize button attributes."""
         self.screen = ai_game.screen
         self.screen_rect = self.screen.get_rect()
@@ -17,6 +18,11 @@ class Button:
         self.rect = pygame.Rect(0, 0, self.width, self.height)
         self.rect.center = self.screen_rect.center
 
+        # optional button settings
+        if args:
+            self.button_color = args[0]
+            self.rect.center = args[1]
+
         # the button message needs to be prepped only once
         self._prep_msg(msg)
 
@@ -30,3 +36,22 @@ class Button:
         # draw blank button and then draw message
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
+
+
+class Border:
+
+    def __init__(self, ai_game, pos):
+        self.screen = ai_game.screen
+        self.screen_rect = self.screen.get_rect()
+
+        # set the dimensions and properties of the border
+        self.width, self.height = 210, 60
+        self.border_color = (0, 0, 0)
+
+        # build the border's rect object and center it
+        self.rect = pygame.Rect(0, 0, self.width, self.height)
+        self.rect.center = pos
+
+    def draw_border(self):
+        # draw blank button and then draw message
+        self.screen.fill(self.border_color, self.rect)
