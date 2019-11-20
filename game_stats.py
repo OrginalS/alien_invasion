@@ -1,6 +1,3 @@
-import json
-
-
 class GameStats:
     """Track statistics for Alien Invasion."""
 
@@ -17,9 +14,8 @@ class GameStats:
         try:
             with open('high_scores.txt', 'r') as file:
                 self.high_score = int(file.readline())
-        except FileNotFoundError:
+        except ValueError:
             self.high_score = 0
-
 
     def reset_stats(self):
         """Initialize statistics that can change during the game."""
@@ -29,4 +25,4 @@ class GameStats:
 
     def save_stats(self):
         with open('high_scores.txt', 'w') as file:
-            json.dump(self.high_score, file)
+            file.write(str(self.high_score))
